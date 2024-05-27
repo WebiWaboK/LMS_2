@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Sistema de Gestión de Aprendizaje (LMS) - Inicio de Sesión
+    link(rel="stylesheet", href="styles.css")
+  body
+    header
+      h1 Inicio de Sesión
+      form(action="/adminLogin", method="post")
+        button(type="submit", name="userType", value="student") Soy Administrador
+    main
+      form(action="/studentLogin", method="post")
+        button(type="submit", name="userType", value="student") Soy Estudiante
+      form(action="/teacherLogin", method="post")
+        button(type="submit", name="userType", value="teacher") Soy Maestro
+    footer
+      p Derechos de autor a coco :D
