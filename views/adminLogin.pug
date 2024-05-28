@@ -1,8 +1,12 @@
 doctype html
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Document
-    body 
-    h1 Soy admin 
+html
+  head
+    title Login Administrador
+  body
+    h1 Inicio de Sesión Administrador
+    form(action='/admin/login', method='POST') // Asegúrate de que la acción sea '/admin/login'
+      label(for='username') Usuario:
+      input(type='text', name='username', required)
+      label(for='password') Contraseña:
+      input(type='password', name='password', required)
+      button(type='submit') Iniciar Sesión

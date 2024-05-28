@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    title Create User
+  body
+    h1 Create User
+    form(action="/admin/createUser" method="post")
+      label(for="role") Role:
+      select(name="role" required)
+        option(value="student") Student
+        option(value="teacher") Teacher
+      br
+      label(for="firstName") First Name:
+      input(type="text" name="firstName" required)
+      br
+      label(for="lastName") Last Name:
+      input(type="text" name="lastName" required)
+      br
+      label(for="email") Email:
+      input(type="email" name="email" required)
+      br
+      label(for="password") Password:
+      input(type="password" name="password" required)
+      br
+      button(type="submit") Create User

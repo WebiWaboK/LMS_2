@@ -1,27 +1,28 @@
-//server.js
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const multer = require('multer');
-const sharp = require('sharp');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const app = express();
 const port = 3000;
 
-// Configurar Multer para manejar la carga de archivos
-const upload = multer({ dest: 'uploads/' });
-
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Configurar middlewares
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'pug');
 
-// Ruta principal para renderizar el formulario de conversión de imágenes
+// Rutas
+const adminRoutes = require('./routes/adminRoutes');
+const userRoutes = require('./routes/userRoutes');
+
 app.get('/', (req, res) => {
-  res.render('index', { inputImage: req.file ? req.file.originalname : null });
+  res.render('index');
 });
-app.listen(3000, () => {
-  console.log('Servidor corriendo en el puerto 3000 http://localhost:3000/');
+
+app.use('/admin', adminRoutes);
+app.use('/admin', userRoutes);
+
+app.listen(port, () => {
+  console.log(`Servidor corriendo en el puerto ${port} http://localhost:${port}/`);
 });

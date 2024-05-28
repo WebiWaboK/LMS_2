@@ -2,7 +2,7 @@ const mysql2 = require('mysql2');
 const dotenv = require('dotenv');
 
 // Configura DotEnv
-dotenv.config();
+dotenv.config();  // Carga las variables de entorno
 
 // Crear pool de conexiones a la base de datos MySQL
 const pool = mysql2.createPool({
@@ -16,11 +16,17 @@ const pool = mysql2.createPool({
     queueLimit: 0
 });
 
-// Obtener una conexión del pool
-function obtenerConexion() {
-    return pool.promise().getConnection();
-}
+// Verificar la conexión a la base de datos al iniciar el servidor
+pool.getConnection((err, connection) => {
+    if (err) {
+        console.error('Error al conectar a la base de datos:', err);
+    } else {
+        console.log('Conexión a la base de datos establecida correctamente');
+        connection.release();
+    }
+});
 
 module.exports = {
-    obtenerConexion
+    obtenerConexion: () => pool.promise().getConnection(),
+    pool
 };
