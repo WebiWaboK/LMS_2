@@ -1,3 +1,4 @@
+// controllers/adminController.js
 const db = require('../config/db').pool;
 const bcrypt = require('bcrypt');
 
