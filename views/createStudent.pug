@@ -1,0 +1,40 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Registro de Estudiante
+    link(rel="stylesheet", href="/styles.css")
+  body
+    header
+      h1 Registro de Estudiante
+    main
+      form(action="/admin/registerStudent", method="post")
+        label(for="first_name") Nombre(s):
+        input(type="text", name="first_name", required)
+        label(for="last_name1") Apellido Paterno:
+        input(type="text", name="last_name1", required)
+        label(for="last_name2") Apellido Materno:
+        input(type="text", name="last_name2", required)
+        label(for="email") Correo Institucional:
+        input(type="email", name="email", required)
+        label(for="password") Contraseña:
+        input(type="password", name="password", id="password", required)
+        label(for="confirm_password") Confirmar Contraseña:
+        input(type="password", name="confirm_password", id="confirm_password", required)
+        input(type="checkbox", onclick="togglePasswordVisibility()") Mostrar Contraseña
+        button(type="submit") Registrar
+    script.
+      function togglePasswordVisibility() {
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirm_password');
+        if (password.type === 'password') {
+          password.type = 'text';
+          confirmPassword.type = 'text';
+        } else {
+          password.type = 'password';
+          confirmPassword.type = 'password';
+        }
+      }
+    footer
+      p Derechos de autor a coco :D

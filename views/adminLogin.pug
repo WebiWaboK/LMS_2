@@ -1,14 +1,19 @@
 doctype html
-html
+html(lang="en")
   head
-    title Login Administrador
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Inicio de Sesión Administrador
+    link(rel="stylesheet", href="/styles.css")
   body
-    h1 Inicio de Sesión Administrador
-    if error
-      p(style="color:red")= error
-    form(action='/admin/adminLogin', method='POST')
-      label(for='username') Usuario:
-      input(type='text', name='username', required)
-      label(for='password') Contraseña:
-      input(type='password', name='password', required)
-      button(type='submit') Iniciar Sesión
+    header
+      h1 Inicio de Sesión Administrador
+    main
+      form(action="/admin/adminLogin", method="post")
+        label(for="username") Usuario:
+        input(type="text", name="username", required)
+        label(for="password") Contraseña:
+        input(type="password", name="password", required)
+        button(type="submit") Iniciar Sesión
+    footer
+      p Derechos de autor a coco :D

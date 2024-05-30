@@ -6,11 +6,9 @@ exports.adminLogin = async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    console.log('Conectando a la base de datos...');
     const [rows] = await db.execute('SELECT * FROM users WHERE username = ? AND role = "admin"', [username]);
 
     if (!rows || rows.length === 0) {
-      console.log('No se encontró el usuario admin en la base de datos.');
       res.render('adminLogin', { error: 'Nombre de usuario o contraseña incorrectos' });
       return;
     }
@@ -30,6 +28,22 @@ exports.adminLogin = async (req, res) => {
     res.status(500).send('Error del servidor');
   }
 };
+
+// Renderizar la página de inicio de sesión del administrador
+exports.renderLoginPage = (req, res) => {
+  res.render('adminLogin', { error: null });
+};
+
+exports.createTeacher = (req, res) => {
+  // Lógica para crear un usuario maestro
+  res.send('Usuario maestro creado');
+};
+
+exports.createStudent = (req, res) => {
+  // Lógica para crear un usuario alumno
+  res.send('Usuario alumno creado');
+};
+
 
 // Renderizar la página de creación de usuarios
 exports.renderCreateUserPage = (req, res) => {
