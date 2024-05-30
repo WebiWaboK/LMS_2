@@ -8,8 +8,8 @@ html(lang="en")
   body
     header
       h1 Inicio de Sesión
-      form(action="/adminLogin", method="post")
-        button(type="submit", name="userType", value="student") Soy Administrador
+      form(action="/admin/adminLogin", method="post")
+        button(type="submit", name="userType", value="admin") Soy Administrador
     main
       form(action="/studentLogin", method="post")
         button(type="submit", name="userType", value="student") Soy Estudiante
@@ -17,3 +17,4 @@ html(lang="en")
         button(type="submit", name="userType", value="teacher") Soy Maestro
     footer
       p Derechos de autor a coco :D
+

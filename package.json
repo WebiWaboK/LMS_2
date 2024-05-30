@@ -10,7 +10,7 @@
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
-    "mysql2": "^3.9.7",
+    "mysql2": "^3.9.9",
     "nodemon": "^3.1.1",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
@@ -24,7 +24,7 @@
     "npm-run-all": "^4.1.5"
   },
   "scripts": {
-    "start": "npm-run-all --parallel sass-watch start-server",
+    "start": "npm-run-all --parallel start-server",
     "start-server": "nodemon server.js",
     "sass": "styles/:public/css/style.css",
     "sass-watch": "sass --watch styles/:public/css/style.css"

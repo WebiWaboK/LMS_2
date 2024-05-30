@@ -4,7 +4,9 @@ html
     title Login Administrador
   body
     h1 Inicio de Sesión Administrador
-    form(action='/admin/login', method='POST') // Aquí la acción debe ser '/admin/login'
+    if error
+      p(style="color:red")= error
+    form(action='/admin/adminLogin', method='POST')
       label(for='username') Usuario:
       input(type='text', name='username', required)
       label(for='password') Contraseña:

@@ -1,4 +1,3 @@
-// controllers/adminController.js
 const db = require('../config/db').pool;
 const bcrypt = require('bcrypt');
 
@@ -7,26 +6,27 @@ exports.adminLogin = async (req, res) => {
   const { username, password } = req.body;
 
   try {
+    console.log('Conectando a la base de datos...');
     const [rows] = await db.execute('SELECT * FROM users WHERE username = ? AND role = "admin"', [username]);
-    
-    if (rows.length > 0) {
-      const user = rows[0];
 
-      const match = await bcrypt.compare(password, user.password);
+    if (!rows || rows.length === 0) {
+      console.log('No se encontró el usuario admin en la base de datos.');
+      res.render('adminLogin', { error: 'Nombre de usuario o contraseña incorrectos' });
+      return;
+    }
 
-      if (match) {
-        // Autenticación exitosa
-        res.redirect('/admin/createUser');
-      } else {
-        // Contraseña incorrecta
-        res.status(401).send('Nombre de usuario o contraseña incorrectos');
-      }
+    const user = rows[0];
+    const match = await bcrypt.compare(password, user.password);
+
+    if (match) {
+      // Autenticación exitosa
+      res.redirect('/admin/createUser');
     } else {
-      // Usuario no encontrado
-      res.status(401).send('Nombre de usuario o contraseña incorrectos');
+      // Contraseña incorrecta
+      res.render('adminLogin', { error: 'Nombre de usuario o contraseña incorrectos' });
     }
   } catch (err) {
-    console.error(err);
+    console.error('Error del servidor:', err);
     res.status(500).send('Error del servidor');
   }
 };

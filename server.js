@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -22,6 +21,16 @@ app.get('/', (req, res) => {
 const adminRoutes = require('./routes/adminRoutes');
 app.use('/admin', adminRoutes);
 
+const bcrypt = require('bcrypt');
+
+bcrypt.hash('admin', 10, (err, hash) => {
+  if (err) throw err;
+  // Usa este hash en tu inserción SQL
+  console.log(hash);
+});
+
+
 app.listen(port, () => {
   console.log(`Servidor corriendo en el puerto ${port} http://localhost:${port}/`);
 });
+
