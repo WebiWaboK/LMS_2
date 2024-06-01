@@ -3,27 +3,39 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Registro de Estudiante
+    title Registro de Maestro
     link(rel="stylesheet", href="/styles.css")
   body
     header
-      h1 Registro de Estudiante
+      h1 Registro de Alumno 
+      a(href="/admin/createUser") Menu de inicio
     main
-      form(action="/admin/registerStudent", method="post")
+      if error
+        p.error= error
+      form(action="/admin/createStudent", method="post" onsubmit="return validateForm()")
         label(for="first_name") Nombre(s):
         input(type="text", name="first_name", required)
+        br
         label(for="last_name1") Apellido Paterno:
         input(type="text", name="last_name1", required)
+        br
         label(for="last_name2") Apellido Materno:
         input(type="text", name="last_name2", required)
+        br
         label(for="email") Correo Institucional:
         input(type="email", name="email", required)
+        br
         label(for="password") Contraseña:
         input(type="password", name="password", id="password", required)
+        br
         label(for="confirm_password") Confirmar Contraseña:
         input(type="password", name="confirm_password", id="confirm_password", required)
-        input(type="checkbox", onclick="togglePasswordVisibility()") Mostrar Contraseña
+        br
+        input(type="checkbox", onclick="togglePasswordVisibility()") 
+        | Mostrar Contraseña <!-- Cambiado aquí para separar el texto de la etiqueta de entrada -->
         button(type="submit") Registrar
+
+
     script.
       function togglePasswordVisibility() {
         const password = document.getElementById('password');
@@ -38,3 +50,4 @@ html(lang="en")
       }
     footer
       p Derechos de autor a coco :D
+      

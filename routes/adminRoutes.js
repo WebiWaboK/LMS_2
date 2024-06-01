@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController');
 const createUserController = require('../controllers/createUserController');
-
+const studentController = require('../controllers/studentController'); // Importa el controlador de estudiantes
 
 // Mostrar la página de inicio de sesión del administrador
 router.get('/adminLogin', (req, res) => {
@@ -18,14 +18,19 @@ router.get('/createUser', (req, res) => {
 });
 
 // Mostrar la página de registro de maestros
-router.get('/createTeacher', createUserController.renderRegisterTeacherPage);
+router.get('/createTeacher', (req, res) => {
+  res.render('createTeacher');
+});
 
 // Manejar el registro de maestros
 router.post('/createTeacher', createUserController.registerTeacher);
 
 // Mostrar la página de registro de estudiantes
-router.get('/registerStudent', createUserController.renderRegisterStudentPage);
+router.get('/createStudent', (req, res) => {
+  res.render('createStudent');
+});
 
 // Manejar el registro de estudiantes
-router.post('/registerStudent', createUserController.registerStudent);
+router.post('/createStudent', studentController.registerStudent); // Utiliza la función registerStudent del controlador de estudiantes
+
 module.exports = router;
