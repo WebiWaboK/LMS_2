@@ -7,7 +7,7 @@ exports.showTeacherLogin = (req, res) => {
 };
 
 exports.teacherLogin = async (req, res) => {
-  let { email, password, role } = req.body;
+  let { email, password } = req.body;
 
   // Validar si el correo electrónico no es undefined
   if (typeof email !== 'undefined') {
@@ -15,7 +15,7 @@ exports.teacherLogin = async (req, res) => {
   }
 
   // Console.log de los datos recibidos
-  console.log('Datos recibidos:', { email, password, role });
+  console.log('Datos recibidos:', { email, password });
 
   try {
     // Consultar el maestro en la base de datos
@@ -45,10 +45,17 @@ exports.teacherLogin = async (req, res) => {
     // Almacenar la sesión del usuario
     req.session.user = { id: teacher.id, role: teacher.role };
 
-    res.render('menu', { role: teacher.role, username: teacher.first_name });
-    console.log('Nombre de usuario:', teacher.first_name);
+    res.redirect('/menu');
   } catch (err) {
     console.error('Error al iniciar sesión del maestro:', err);
     res.status(500).send('Error del servidor');
   }
+};
+
+// Mostrar el menú del maestro
+exports.showMenu = (req, res) => {
+  if (!req.session.user || req.session.user.role !== 'teacher') {
+    return res.redirect('/teacherLogin');
+  }
+  res.render('menu', { role: req.session.user.role, username: req.session.user.username });
 };

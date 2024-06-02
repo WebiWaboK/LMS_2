@@ -1,0 +1,64 @@
+// Variables
+$primary-color: #3498db
+$secondary-color: #2ecc71
+$font-family: 'Arial, sans-serif'
+$body-background: #f4f4f4
+$button-background: #fff
+$button-hover-background: $primary-color
+$button-hover-color: #fff
+
+// Reset some basic elements
+*
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+
+body
+  font-family: $font-family
+  background-color: $body-background
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+
+header
+  background-color: $primary-color
+  color: #fff
+  padding: 20px 0
+  text-align: center
+  h1
+    margin: 0
+    font-size: 2rem
+
+main
+  flex: 1
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-direction: column
+  padding: 20px
+
+  form
+    margin: 10px
+    button
+      background-color: $button-background
+      border: 2px solid $primary-color
+      color: $primary-color
+      padding: 10px 20px
+      font-size: 1rem
+      cursor: pointer
+      transition: background-color 0.3s, color 0.3s
+      border-radius: 5px
+      &:hover
+        background-color: $button-hover-background
+        color: $button-hover-color
+      &:focus
+        outline: none
+        box-shadow: 0 0 5px $primary-color
+
+footer
+  background-color: $primary-color
+  color: #fff
+  text-align: center
+  padding: 10px 0
+  p
+    margin: 0

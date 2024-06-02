@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const dotenv = require('dotenv');
 const taskController = require('./controllers/taskController');
+const logoutController = require('./controllers/logoutController'); // Importa el controlador de logout
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(session({
   saveUninitialized: true
 }));
 app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views')); // Asegúrate de configurar la carpeta de vistas
 
 // Ruta principal
 app.get('/', (req, res) => {
@@ -29,6 +31,9 @@ app.get('/create-task', taskController.showCreateTaskForm);
 
 // Ruta para procesar el formulario de creación de tareas
 app.post('/create-task', taskController.createTask);
+
+// Ruta para manejar el logout
+app.get('/logout', logoutController.logout);
 
 // Usar las rutas del administrador
 const adminRoutes = require('./routes/adminRoutes');

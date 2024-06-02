@@ -1,6 +1,9 @@
 const db = require('../config/db').pool;
 
 exports.showCreateTaskForm = (req, res) => {
+  if (!req.session.user || req.session.user.role !== 'teacher') {
+    return res.redirect('/teacherLogin');
+  }
   res.render('createTask');
 };
 
