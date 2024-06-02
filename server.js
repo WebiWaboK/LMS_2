@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const dotenv = require('dotenv');
+const { urlencodedParser } = require('./middleware/middleware');
 
 dotenv.config();
 
@@ -9,7 +10,7 @@ const app = express();
 const port = 3000;
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(urlencodedParser);
 app.set('view engine', 'pug');
 
 // Ruta principal
@@ -20,6 +21,9 @@ app.get('/', (req, res) => {
 // Usar las rutas del administrador
 const adminRoutes = require('./routes/adminRoutes');
 app.use('/admin', adminRoutes);
+
+const teacherRoutes = require('./routes/teacherRoutes');
+app.use(teacherRoutes);
 
 const bcrypt = require('bcrypt');
 
