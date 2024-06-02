@@ -9,7 +9,7 @@ router.get('/create-task', checkRole('teacher'), (req, res) => {
 
 // Rutas accesibles para todos
 router.get('/menu', (req, res) => {
-  res.render('menu', { role: req.session.user.role });
+  res.render('menu', { role: req.session.user.role, username: req.session.user.username });
 });
 
 module.exports = router;

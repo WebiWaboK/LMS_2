@@ -3,6 +3,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 const dotenv = require('dotenv');
+const taskController = require('./controllers/taskController');
 
 dotenv.config();
 
@@ -22,6 +23,12 @@ app.set('view engine', 'pug');
 app.get('/', (req, res) => {
   res.render('index');
 });
+
+// Ruta para mostrar el formulario de creación de tareas
+app.get('/create-task', taskController.showCreateTaskForm);
+
+// Ruta para procesar el formulario de creación de tareas
+app.post('/create-task', taskController.createTask);
 
 // Usar las rutas del administrador
 const adminRoutes = require('./routes/adminRoutes');

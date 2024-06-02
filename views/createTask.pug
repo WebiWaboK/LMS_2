@@ -1,0 +1,28 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Crear Tarea
+    link(rel="stylesheet", href="/stylesheets/style.css")
+  body
+    h1 Crear Nueva Tarea
+
+    form(action="/create-task", method="post")
+      div
+        label(for="taskName") Nombre de la Tarea:
+        input(type="text", id="taskName", name="taskName", required)
+
+      div
+        label(for="description") Descripción:
+        textarea(id="description", name="description", rows="4", required)
+
+      div
+        label(for="dueDate") Fecha de Entrega:
+        input(type="date", id="dueDate", name="dueDate", required)
+
+      div
+        button(type="submit") Crear Tarea
+
+    footer
+      p Derechos de autor a coco :D
