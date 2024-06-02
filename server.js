@@ -1,8 +1,8 @@
 const express = require('express');
+const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 const dotenv = require('dotenv');
-const { urlencodedParser } = require('./middleware/middleware');
 
 dotenv.config();
 
@@ -10,7 +10,12 @@ const app = express();
 const port = 3000;
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(urlencodedParser);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({
+  secret: 'your_secret_key',
+  resave: false,
+  saveUninitialized: true
+}));
 app.set('view engine', 'pug');
 
 // Ruta principal
@@ -25,16 +30,7 @@ app.use('/admin', adminRoutes);
 const teacherRoutes = require('./routes/teacherRoutes');
 app.use(teacherRoutes);
 
-const bcrypt = require('bcrypt');
-
-bcrypt.hash('admin', 10, (err, hash) => {
-  if (err) throw err;
-  // Usa este hash en tu inserción SQL
-  console.log(hash);
-});
-
-
+// Start the server
 app.listen(port, () => {
-  console.log(`Servidor corriendo en el puerto ${port} http://localhost:${port}/`);
+  console.log(`Servidor iniciado en http://localhost:${port}`);
 });
-

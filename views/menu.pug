@@ -1,8 +1,22 @@
 doctype html
 html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Document
-    body 
-        h1 ESTAS EN COCOSCUL
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Menú de la Escuela
+  body
+    h1 Bienvenido al Menu Principal
+
+    if role === 'teacher'
+      nav
+        ul
+          li: a(href="/create-task") Crear Tarea
+          // Otros enlaces específicos para maestros
+    if role === 'student'
+      nav
+        ul
+          li: a(href="/view-assignments") Ver Tareas
+          // Otros enlaces específicos para estudiantes
+
+    footer
+      p Derechos de autor a coco :D
