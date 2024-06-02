@@ -1,0 +1,118 @@
+// Variables
+$primary-color: #3498db
+$secondary-color: #2ecc71
+$font-family: 'Arial, sans-serif'
+$body-background: #f4f4f4
+$form-background: #fff
+$form-border-color: #ddd
+$form-shadow-color: rgba(0, 0, 0, 0.1)
+$button-background: $primary-color
+$button-color: #fff
+$button-hover-background: darken($primary-color, 10%)
+$input-border-color: #ccc
+$input-focus-border-color: $primary-color
+$error-color: #e74c3c
+
+// Reset some basic elements
+*
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+
+body
+  font-family: $font-family
+  background-color: $body-background
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+
+header
+  background-color: $primary-color
+  color: #fff
+  padding: 20px 0
+  text-align: center
+  width: 100%
+  position: fixed
+  top: 0
+  left: 0
+  h1
+    margin: 0
+    font-size: 2rem
+  a
+    color: $button-color
+    text-decoration: none
+    margin-top: 10px
+    display: inline-block
+    &:hover
+      text-decoration: underline
+
+main
+  flex: 1
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-direction: column
+  padding: 80px 20px 60px 20px // Ajustar el padding para considerar header y footer
+  width: 100%
+
+  form
+    background-color: $form-background
+    border: 1px solid $form-border-color
+    box-shadow: 0 2px 5px $form-shadow-color
+    padding: 20px
+    border-radius: 10px
+    width: 300px
+    max-width: 100%
+    margin-bottom: 20px
+
+    label
+      display: block
+      margin-bottom: 5px
+      font-weight: bold
+
+    input[type="email"],
+    input[type="password"],
+    input[type="text"]
+      width: 100%
+      padding: 10px
+      margin-bottom: 10px
+      border: 1px solid $input-border-color
+      border-radius: 5px
+      &:focus
+        border-color: $input-focus-border-color
+        outline: none
+
+    input[type="checkbox"]
+      margin-right: 5px
+
+    button
+      width: 100%
+      padding: 10px
+      background-color: $button-background
+      color: $button-color
+      border: none
+      border-radius: 5px
+      font-size: 1rem
+      cursor: pointer
+      transition: background-color 0.3s
+      &:hover
+        background-color: $button-hover-background
+      &:focus
+        outline: none
+
+  .error
+    color: $error-color
+    margin-bottom: 10px
+    font-weight: bold
+
+footer
+  background-color: $primary-color
+  color: #fff
+  text-align: center
+  padding: 10px 0
+  width: 100%
+  position: fixed
+  bottom: 0
+  left: 0
+  p
+    margin: 0

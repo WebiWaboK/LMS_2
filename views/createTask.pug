@@ -10,6 +10,12 @@ html(lang="en")
 
     form(action="/create-task", method="post")
       div
+        label(for="moduleId") Módulo:
+        select(id="moduleId", name="moduleId", required)
+          each module in modules
+            option(value=module.id)= module.name
+
+      div
         label(for="taskName") Nombre de la Tarea:
         input(type="text", id="taskName", name="taskName", required)
 
