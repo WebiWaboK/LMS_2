@@ -5,17 +5,23 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title Menú de la Escuela
   body
-    h1 Bienvenido al Menu Principal
+    h1 Bienvenido al Menu Principal,  #{username}!!
 
     if role === 'teacher'
       nav
         ul
           li: a(href="/create-task") Crear Tarea
+          li: a(href="/subjects") Asignaturas
+          li: a(href="/profile") Perfil
+          li: a(href="/logout") Cerrar Sesión
           // Otros enlaces específicos para maestros
-    if role === 'student'
+    else if role === 'student'
       nav
         ul
           li: a(href="/view-assignments") Ver Tareas
+          li: a(href="/subjects") Asignaturas
+          li: a(href="/profile") Perfil
+          li: a(href="/logout") Cerrar Sesión
           // Otros enlaces específicos para estudiantes
 
     footer

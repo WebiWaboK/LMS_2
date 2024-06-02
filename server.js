@@ -30,6 +30,9 @@ app.use('/admin', adminRoutes);
 const teacherRoutes = require('./routes/teacherRoutes');
 app.use(teacherRoutes);
 
+const studentRoutes = require('./routes/studentRoute');
+app.use(studentRoutes);
+
 // Start the server
 app.listen(port, () => {
   console.log(`Servidor iniciado en http://localhost:${port}`);

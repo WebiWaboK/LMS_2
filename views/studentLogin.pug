@@ -3,21 +3,21 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Inicio de Sesión Administrador
+    title Inicio de Sesión Estudiante
     link(rel="stylesheet", href="/styles.css")
   body
     header
-      h1 Inicio de Sesión de Maestro
+      h1 Inicio de Sesión de Estudiante
     main
       if error
         p.error= error
-      form(action="/teacherLogin", method="post")
+      form(action="/studentLogin", method="post")
         label(for="email") Correo:
         input(type="text", name="email", required)
         label(for="password") Contraseña:
         input(type="password", name="password", required)
         // Campo oculto para el rol
-        input(type="hidden", name="role", value="teacher")
+        input(type="hidden", name="role", value="student")
         input(type="hidden", name="first_name")
         button(type="submit") Iniciar Sesión
     footer

@@ -45,7 +45,8 @@ exports.teacherLogin = async (req, res) => {
     // Almacenar la sesión del usuario
     req.session.user = { id: teacher.id, role: teacher.role };
 
-    res.render('menu', { role: teacher.role }); // Redirigir al panel de control del maestro
+    res.render('menu', { role: teacher.role, username: teacher.first_name });
+    console.log('Nombre de usuario:', teacher.first_name);
   } catch (err) {
     console.error('Error al iniciar sesión del maestro:', err);
     res.status(500).send('Error del servidor');
