@@ -1,0 +1,118 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+header {
+  background-color: #007bff;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+nav {
+  margin-top: 0.5rem;
+}
+nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+nav a {
+  color: white;
+  text-decoration: none;
+}
+nav a:hover {
+  text-decoration: underline;
+}
+
+main {
+  flex: 1;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 2rem auto;
+}
+main h2 {
+  color: #007bff;
+}
+main p {
+  font-size: 1.1rem;
+}
+main form {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+main form label {
+  font-weight: bold;
+}
+main form input[type=text] {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+main form button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+main form button:hover {
+  background-color: #0056b3;
+}
+main h3 {
+  margin-top: 2rem;
+  color: #007bff;
+}
+main table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+main table thead {
+  background-color: #007bff;
+  color: white;
+}
+main table th, main table td {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+}
+main table a {
+  color: #007bff;
+}
+main table a:hover {
+  text-decoration: underline;
+}
+
+.teacher-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+}
+
+footer {
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/*# sourceMappingURL=styleTask2.css.map */

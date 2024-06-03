@@ -1,0 +1,54 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/css/styleTask.css")
+    title Tarea: #{task.task_name}
+  body
+    header 
+      h1 Tarea: #{task.task_name}
+      nav
+        ul
+          li: a(href="/menu") Menú Principal
+          li: a(href="/logout") Cerrar Sesión
+    main
+      h2= task.task_name
+      p Descripción: #{task.description}
+      p Fecha de entrega: #{task.due_date}
+      if task.module
+        p Módulo: #{task.module.name}
+
+      if (role === 'student')
+        form(action=`/task/upload/${task.id}`, method="POST")
+          label(for="file_link") Enlace al archivo:
+          input(type="text", id="file_link", name="file_link", required)
+          button(type="submit") Subir Tarea
+      
+      if (role === 'teacher')
+        h3 Alumnos que han subido la tarea:
+        if uploads && uploads.length > 0
+          table
+            thead
+              tr
+                th Nombre
+                th Apellido
+                th Enlace al Archivo
+                th Fecha de Subida
+            tbody
+              each upload in uploads
+                tr
+                  td= upload.student_name
+                  td= upload.student_last_name
+                  td: a(href=upload.file_link target="_blank") Ver Archivo
+                  td= upload.uploaded_at
+        else
+          p Ningún alumno ha subido la tarea aún.
+
+        form(action=`/task/edit/${task.id}`, method="GET")
+          button(type="submit") Editar Tarea
+        form(action=`/task/delete/${task.id}`, method="POST", onsubmit="return confirm('¿Desea eliminar la tarea?');")
+          button(type="submit") Eliminar Tarea
+
+    footer
+      p Derechos de autor a coco :D

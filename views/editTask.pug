@@ -1,0 +1,29 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/css/styleEditTask.css")
+    title= `Editar Tarea: ${task.task_name}`
+  body
+    header 
+      h1 Editar Tarea: #{task.task_name}
+      nav
+        ul
+          li: a(href="/menu") Menú Principal
+          li: a(href="/logout") Cerrar Sesión
+    main
+      form(action=`/task/edit/${task.id}`, method="POST")
+        label(for="taskName") Nombre de la tarea:
+        input(type="text", id="taskName", name="taskName", value=task.task_name, required)
+        
+        label(for="description") Descripción:
+        textarea(id="description", name="description", required)= task.description
+        
+        label(for="dueDate") Fecha de entrega:
+        input(type="date", id="dueDate", name="dueDate", value=task.due_date, required)
+        
+        button(type="submit") Guardar Cambios
+
+    footer
+      p Derechos de autor a coco :D

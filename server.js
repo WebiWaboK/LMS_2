@@ -8,6 +8,7 @@ const logoutController = require('./controllers/logoutController');
 const adminRoutes = require('./routes/adminRoutes');
 const teacherRoutes = require('./routes/teacherRoutes');
 const studentRoutes = require('./routes/studentRoute');
+const taskRoutes = require('./routes/taskRoutes');
 
 dotenv.config();
 
@@ -47,6 +48,7 @@ app.get('/logout', logoutController.logout);
 app.use('/admin', adminRoutes);
 app.use(teacherRoutes);
 app.use(studentRoutes);
+app.use('/', taskRoutes);
 
 // Start the server
 app.listen(port, () => {
