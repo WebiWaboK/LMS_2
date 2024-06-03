@@ -26,10 +26,10 @@ html(lang="en")
 
       form(action="/create-task", method="post")
         .form-group
-          label(for="moduleId") Módulo:
-          select#moduleId(name="moduleId", required)
+          label(for="modules_id") Módulo:
+          select#moduleId(name="modules_id", required)
             each module in modules
-              option(value=module.id)= module.name
+              option(value=module.id)= module.name 
 
         .form-group
           label(for="taskName") Nombre de la Tarea:
@@ -42,13 +42,6 @@ html(lang="en")
         .form-group
           label(for="dueDate") Fecha de Entrega:
           input#dueDate(type="date", name="dueDate", required)
-
-        // Agregando el campo de selección de módulo
-        .form-group
-          label(for="moduleId") Módulo:
-          select#moduleId(name="moduleId", required)
-            each module in modules
-              option(value=module.id)= module.name
 
         .form-group
           button.btn-submit(type="submit") Crear Tarea

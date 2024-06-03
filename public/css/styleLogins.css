@@ -84,6 +84,26 @@ main form button:focus {
   outline: none;
 }
 
+.back-button {
+  width: auto;
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #3498db;
+  border: 1px solid #3498db;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+.back-button:hover {
+  background-color: #3498db;
+  color: #fff;
+}
+.back-button:focus {
+  outline: none;
+}
+
 footer {
   background-color: #3498db;
   color: #fff;

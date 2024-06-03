@@ -10,8 +10,13 @@ html(lang="en")
       h1 Bienvenido #{username} a la Cocoscuela!!
       nav
         ul
-          if role === 'teacher' || role === 'student'
+          if role === 'teacher'
             li: a(href="/create-task") Crear Tarea
+            li: a(href="/subjects") Asignaturas
+            li: a(href="/profile") Perfil
+            li: a(href="/logout") Cerrar Sesión
+          else if role === 'student'
+            li: a(href="/view-task") Ver Tareas
             li: a(href="/subjects") Asignaturas
             li: a(href="/profile") Perfil
             li: a(href="/logout") Cerrar Sesión
@@ -24,13 +29,13 @@ html(lang="en")
               h3= module.name
               p= module.description
               .assignments-container
-                if module.assignments && module.assignments.length > 0
+                if module.task && module.task.length > 0
                   ul.assignments
-                    each assignment in module.assignments
+                    each task in module.task
                       li
-                        h4= assignment.title
-                        p= assignment.description
-                        p Fecha de entrega: #{assignment.due_date}
+                        a(href=`/task/${task_name.id}`)= task.title
+                        p= task.description
+                        p Fecha de entrega: #{task.due_date}
                 else
                   p No hay tareas asignadas en este módulo.
       else

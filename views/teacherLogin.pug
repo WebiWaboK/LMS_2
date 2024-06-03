@@ -3,7 +3,7 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Inicio de Sesión Administrador
+    title Inicio de Sesión de Maestro
     link(rel="stylesheet", href="/css/styleLogins.css")
   body
     header
@@ -20,5 +20,6 @@ html(lang="en")
         input(type="hidden", name="role", value="teacher")
         input(type="hidden", name="first_name")
         button(type="submit") Iniciar Sesión
+      <button class="back-button" type="button" onclick="window.location.href = '/'">Regresar</button>
     footer
       p Derechos de autor a coco :D

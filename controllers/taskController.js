@@ -17,15 +17,20 @@ exports.showCreateTaskForm = async (req, res) => {
 
 exports.createTask = async (req, res) => {
   try {
-    const { modulesId, taskName, description, dueDate } = req.body;
+    const { modules_id, taskName, description, dueDate } = req.body;
+
+    console.log('Datos de la tarea recibidos:', { modules_id, taskName, description, dueDate });
 
     const [result] = await db.execute(
       'INSERT INTO tasks (modules_id, task_name, description, due_date) VALUES (?, ?, ?, ?)',
-      [modulesId, taskName, description, dueDate]
+      [modules_id, taskName, description, dueDate]
     );
+
+    console.log('Resultado de la inserción:', result);
 
     if (!result || result.affectedRows !== 1) {
       console.log('Error al crear la tarea');
+      console.log(req.body);
       return res.status(500).send('Error al crear la tarea');
     }
 

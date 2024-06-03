@@ -1,28 +1,28 @@
 const db = require('../config/db').pool;
 const bcrypt = require('bcrypt');
 
-// Mostrar la página de inicio de sesión del estudiante
-exports.showStudentLogin = (req, res) => {
-  res.render('menu');
+exports.showStudentLogin = async (req, res) => {
+  try {
+    res.render('menu');
+  } catch (err) {
+    console.error('Error al mostrar el inicio de sesión del estudiante:', err);
+    res.status(500).send('Error del servidor');
+  }
 };
 
-exports.studentLogin = async (req, res) => {
+exports.studentLoginAndShowMenu = async (req, res) => {
   let { email, password, role } = req.body;
 
-  // Validar si el correo electrónico no es undefined
   if (typeof email !== 'undefined') {
     email = email.trim();
   }
 
-  // Console.log de los datos recibidos
   console.log('Datos recibidos:', { email, password, role });
 
   try {
-    // Consultar al estudiante en la base de datos
     console.log('Consultando al estudiante en la base de datos...');
     const [rows] = await db.execute('SELECT * FROM students WHERE TRIM(email) = ?', [email]);
 
-    // Verificar si se encontraron resultados
     if (!rows || rows.length === 0) {
       console.log('No se encontró ningún estudiante con el correo proporcionado.');
       return res.status(401).render('studentLogin', { error: 'Usuario o contraseña incorrectos' });
@@ -30,51 +30,39 @@ exports.studentLogin = async (req, res) => {
 
     const student = rows[0];
 
-    // Console.log de la contraseña almacenada en la base de datos
     console.log('Contraseña almacenada en la base de datos:', student.password);
 
-    // Verificar si la contraseña coincide
     if (!(await bcrypt.compare(password, student.password))) {
       console.log('Contraseña incorrecta.');
       return res.status(401).render('studentLogin', { error: 'Usuario o contraseña incorrectos' });
     }
 
-    // El estudiante ha iniciado sesión correctamente
-    console.log('El estudiante ha iniciado sesión correctamente si.');
+    console.log('El estudiante ha iniciado sesión correctamente.');
 
-    // Almacenar la sesión del usuario
     req.session.user = { id: student.id, role: student.role };
 
-    res.render('menu', { role: student.role, username: student.first_name });
-     // Redirigir al panel de control del estudiante
-  } catch (err) {
-    console.error('Error al iniciar sesión del estudiante:', err);
-    res.status(500).send('Error del servidor');
-  }
-  console.log('Sesión de usuario:', req.session.user);
-};
-
-exports.showMenu = async (req, res) => {
-  console.log('Sesión de usuario:', req.session.user);
-  try {
-    // Obtén los módulos de la base de datos
+    // Obtener los módulos y tareas
+    console.log('Obteniendo los módulos y tareas...');
     const [modules] = await db.execute('SELECT * FROM modules');
 
-    // Obtén las asignaciones para cada módulo
-    for (let module of modules) {
-      const [tasks] = await db.execute('SELECT * FROM tasks WHERE modules_id = ?', [module.id]);
-      module.tasks = tasks;
-      console.log('Datos obtenidos de la base de datos:', modules);
+    if (!modules || modules.length === 0) {
+      console.log('No se encontraron módulos.');
+      return res.status(404).send('No se encontraron módulos.');
     }
 
-    // Verifica los datos obtenidos en la consola
-    console.log('Datos obtenidos de la base de datos:', modules);
+    const tasksPromises = modules.map(async (module) => {
+      const [tasks] = await db.execute('SELECT * FROM tasks WHERE modules_id = ?', [modules.id]);
+      module.tasks = tasks;
+      return module;
+    });
 
-    // Pasa los módulos a la vista
-    console.log(modules);
-    res.render('menu', { username: req.session.user.username, role: req.session.user.role, modules: modules });
+    const modulesWithTasks = await Promise.all(tasksPromises);
+
+    req.session.user.username = modulesWithTasks.length > 0 ? modulesWithTasks[0].username : '';
+
+    res.render('menu', { role: student.role, username: req.session.user.username, modules: modulesWithTasks });
   } catch (err) {
-    console.error('Error al obtener los módulos:', err);
+    console.error('Error al iniciar sesión del estudiante o al obtener los módulos:', err);
     res.status(500).send('Error del servidor');
   }
 };

@@ -1,16 +1,17 @@
-const checkRole = (req, res, next) => {
-  // Verificar si el usuario no está autenticado
-  if (!req.session.user) {
-    // Redirigir al inicio de sesión
-    if (req.originalUrl.includes('/studentLogin')) {
-      return res.redirect('/studentLogin');
+const checkRole = (role) => (req, res, next) => {
+  if (req.session && req.session.user && req.session.user.role === role) {
+    next();
+  } else {
+    // Redirigir al inicio de sesión correspondiente según el rol
+    if (role === 'teacher') {
+      res.redirect('/teacherLogin');
+    } else if (role === 'student') {
+      res.redirect('/studentLogin');
     } else {
-      return res.redirect('/teacherLogin');
+      // Si el rol no está definido o es incorrecto, redirigir a una página de error
+      res.status(403).send('Forbidden');
     }
   }
-  
-  // Si el usuario está autenticado, continuar con la siguiente función de middleware
-  next();
 };
 
 module.exports = checkRole;
