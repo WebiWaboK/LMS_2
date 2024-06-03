@@ -44,32 +44,33 @@ exports.createTask = async (req, res) => {
   }
 };
 
-// Mostrar una tarea específica
 exports.showTask = async (req, res) => {
+  const taskId = req.params.id;
+  const user = req.session.user;
+  const role = user ? user.role : undefined;
+
+  console.log('Rol del usuario:', role);
+
   try {
-    const taskId = req.params.id;
-    console.log(`Obteniendo la tarea con ID: ${taskId}`);
-
     const [taskRows] = await db.execute('SELECT * FROM tasks WHERE id = ?', [taskId]);
-
-    if (!taskRows || taskRows.length === 0) {
-      console.log('No se encontró la tarea con el ID proporcionado.');
+    if (taskRows.length === 0) {
       return res.status(404).send('Tarea no encontrada');
     }
 
     const task = taskRows[0];
 
-    const [moduleRows] = await db.execute('SELECT * FROM modules WHERE id = ?', [task.modules_id]);
-    const module = moduleRows[0];
+    if (role === 'teacher') {
+      const [uploads] = await db.execute(`
+        SELECT u.file_link, u.uploaded_at, s.first_name as student_first_name, s.last_name1 as student_last_name1
+        FROM uploads u
+        JOIN students s ON u.student_id = s.id
+        WHERE u.task_id = ?
+      `, [taskId]);
 
-    task.module = module;
-
-    const [uploads] = await db.execute(
-      'SELECT u.file_link, u.uploaded_at, s.first_name as student_name, s.last_name1 as student_last_name1, s.last_name2 as student_last_name2 FROM uploads u JOIN students s ON u.student_id = s.id WHERE u.task_id = ?',
-      [taskId]
-    );
-
-    res.render('task', { task, uploads, user: req.session.user });
+      res.render('task', { task, role, uploads });
+    } else {
+      res.render('task', { task, role });
+    }
   } catch (err) {
     console.error('Error al obtener la tarea:', err);
     res.status(500).send('Error del servidor');
