@@ -10,61 +10,55 @@ html(lang="en")
       h1 Bienvenido #{username} a la Cocoscuela!!
       nav
         ul
-          // Verificar el rol del usuario
           if role === 'teacher'
             li: a(href="/create-task") Crear Tarea
             li: a(href="/subjects") Asignaturas
             li: a(href="/profile") Perfil
             li: a(href="/logout") Cerrar Sesión
-            // Otros enlaces específicos para maestros
           else if role === 'student'
             li: a(href="/view-assignments") Ver Tareas
             li: a(href="/subjects") Asignaturas
             li: a(href="/profile") Perfil
             li: a(href="/logout") Cerrar Sesión
-            // Otros enlaces específicos para estudiantes
 
     main
       h2 Módulos y Tareas Asignadas
       if modules && modules.length > 0
         .modules-container
           each module in modules
-            .module
+            .module(onclick="toggleAssignments(this)")
               h3= module.name
               p= module.description
-              if module.assignments && module.assignments.length > 0
-                ul.assignments
-                  each assignment in module.assignments
-                    li
-                      h4= assignment.title
-                      p= assignment.description
-                      p Fecha de entrega: #{assignment.due_date}
-              else
-                p No hay tareas asignadas en este módulo.
+              .assignments-container
+                if module.assignments && module.assignments.length > 0
+                  ul.assignments
+                    each assignment in module.assignments
+                      li
+                        h4= assignment.title
+                        p= assignment.description
+                        p Fecha de entrega: #{assignment.due_date}
+                else
+                  p No hay tareas asignadas en este módulo.
       else
         p No hay módulos creados.
 
-      // Verificar el rol del usuario
       if role === 'teacher'
         button.btn-create-module(type="submit", onclick="showModuleForm()") Crear Módulo
 
-      // Modal para el formulario de módulo
       #moduleFormModal.modal(style="display: none;")
         .modal-content
           span.close-button(onclick="closeModuleForm()") &times;
           h2 Crear Módulo
-          // Aquí va el formulario para crear un nuevo módulo
           form(id="moduleForm", action="/create-module", method="POST")
-            label(for="moduleName") Nombre del Módulo:
-            input(type="text", id="moduleName", name="moduleName", maxlength="50", required)
-            label(for="moduleDescription") Descripción del Módulo:
-            textarea(id="moduleDescription", name="moduleDescription", maxlength="100", required)
+            label(for="name") Nombre del Módulo:
+            input(type="text", id="name", name="name", maxlength="50", required)
+            label(for="description") Descripción del Módulo:
+            textarea(id="description", name="description", maxlength="100", required)
             button(type="submit") Crear
 
     footer
       p Derechos de autor a coco :D
 
-    // Script para las funciones de mostrar y cerrar el formulario de módulo
     script.
       function showModuleForm() {
         var modal = document.getElementById("moduleFormModal");
@@ -74,4 +68,13 @@ html(lang="en")
       function closeModuleForm() {
         var modal = document.getElementById("moduleFormModal");
         modal.style.display = "none";
+      }
+
+      function toggleAssignments(moduleElement) {
+        var assignmentsContainer = moduleElement.querySelector('.assignments-container');
+        if (assignmentsContainer.style.display === 'block') {
+          assignmentsContainer.style.display = 'none';
+        } else {
+          assignmentsContainer.style.display = 'block';
+        }
       }

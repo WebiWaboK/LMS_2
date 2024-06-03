@@ -89,6 +89,7 @@ main .modules-container .module {
   width: 300px;
   max-width: 100%;
   text-align: center;
+  cursor: pointer;
 }
 main .modules-container .module h3 {
   margin: 0 0 10px 0;
@@ -97,22 +98,26 @@ main .modules-container .module h3 {
 main .modules-container .module p {
   margin: 0 0 10px 0;
 }
-main .modules-container .module ul.assignments {
+main .modules-container .module .assignments-container {
+  display: none;
+  margin-top: 10px;
+}
+main .modules-container .module .assignments-container ul.assignments {
   list-style: none;
   padding: 0;
 }
-main .modules-container .module ul.assignments li {
+main .modules-container .module .assignments-container ul.assignments li {
   background-color: white;
   border: 1px solid #ddd;
   padding: 10px;
   border-radius: 5px;
   margin-bottom: 10px;
 }
-main .modules-container .module ul.assignments li h4 {
+main .modules-container .module .assignments-container ul.assignments li h4 {
   margin: 0 0 5px 0;
   color: #3498db;
 }
-main .modules-container .module ul.assignments li p {
+main .modules-container .module .assignments-container ul.assignments li p {
   margin: 0;
 }
 
@@ -130,7 +135,6 @@ footer p {
   margin: 0;
 }
 
-/* Estilos del modal */
 .modal {
   display: none;
   position: fixed;
@@ -163,12 +167,12 @@ footer p {
   cursor: pointer;
 }
 
-#moduleFormModal.modal .modal-content label {
+form#moduleForm label {
   margin-bottom: 10px;
   font-weight: bold;
 }
-#moduleFormModal.modal .modal-content input[type=text],
-#moduleFormModal.modal .modal-content textarea {
+form#moduleForm input[type=text],
+form#moduleForm textarea {
   width: 100%;
   padding: 8px;
   margin-bottom: 20px;
@@ -177,8 +181,8 @@ footer p {
   box-sizing: border-box;
   transition: border-color 0.3s;
 }
-#moduleFormModal.modal .modal-content input[type=text]:focus,
-#moduleFormModal.modal .modal-content textarea:focus {
+form#moduleForm input[type=text]:focus,
+form#moduleForm textarea:focus {
   border-color: #3498db;
 }
 

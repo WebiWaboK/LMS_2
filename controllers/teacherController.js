@@ -43,7 +43,7 @@ exports.teacherLogin = async (req, res) => {
     console.log('El maestro ha iniciado sesión correctamente.');
 
     // Almacenar la sesión del usuario
-    req.session.user = { id: teacher.id, role: teacher.role };
+    req.session.user = { id: teacher.id, role: teacher.role, username: teacher.username };
 
     res.redirect('/menu');
   } catch (err) {
@@ -53,9 +53,26 @@ exports.teacherLogin = async (req, res) => {
 };
 
 // Mostrar el menú del maestro
-exports.showMenu = (req, res) => {
+exports.showMenu = async (req, res) => {
   if (!req.session.user || req.session.user.role !== 'teacher') {
     return res.redirect('/teacherLogin');
   }
-  res.render('menu', { role: req.session.user.role, username: req.session.user.username });
+
+  try {
+    // Obtén los módulos de la base de datos
+    const [modules] = await db.execute('SELECT * FROM modules');
+
+    // Obtén las asignaciones para cada módulo
+    for (let module of modules) {
+      const [tasks] = await db.execute('SELECT * FROM tasks WHERE modules_id = ?', [modules.id]);
+      modules.tasks = tasks;
+    }
+
+    // Pasa los módulos a la vista
+    console.log(modules); // Para verificar los datos en la consola
+    res.render('menu', { username: req.session.user.username, role: req.session.user.role, modules: modules });
+  } catch (err) {
+    console.error('Error al obtener los módulos:', err);
+    res.status(500).send('Error del servidor');
+  }
 };

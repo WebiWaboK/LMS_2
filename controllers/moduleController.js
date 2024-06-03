@@ -9,18 +9,23 @@ exports.showCreateModuleForm = (req, res) => {
 
 exports.createModule = async (req, res) => {
   try {
-    const { moduleName, description } = req.body;
+    const { name, description } = req.body;
+
+    console.log('Datos recibidos para crear el módulo:', { name, description });
 
     const [result] = await db.execute(
       'INSERT INTO modules (name, description) VALUES (?, ?)',
-      [moduleName, description]
+      [name, description]
     );
+
+    console.log('Resultado de la consulta:', result);
 
     if (!result || result.affectedRows !== 1) {
       console.log('Error al crear el módulo');
       return res.status(500).send('Error al crear el módulo');
     }
 
+    console.log('Módulo creado correctamente');
     return res.redirect('/menu');
   } catch (err) {
     console.error('Error al crear el módulo:', err);

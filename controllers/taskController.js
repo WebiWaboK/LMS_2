@@ -33,3 +33,21 @@ exports.createTask = async (req, res) => {
     return res.status(500).send('Error del servidor');
   }
 };
+
+exports.showMenu = async (req, res) => {
+  if (!req.session.user || req.session.user.role !== 'teacher') {
+    return res.redirect('/teacherLogin');
+  }
+
+  try {
+    // Obtén los módulos de la base de datos
+    const [modules] = await db.execute('SELECT * FROM modules');
+
+    // Aquí podrías obtener también las asignaciones para cada módulo si es necesario
+
+    res.render('menu', { username: req.session.user.username, role: req.session.user.role, modules: modules });
+  } catch (err) {
+    console.error('Error al obtener los módulos:', err);
+    res.status(500).send('Error del servidor');
+  }
+};
