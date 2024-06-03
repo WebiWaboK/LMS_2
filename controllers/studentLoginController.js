@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 // Mostrar la página de inicio de sesión del estudiante
 exports.showStudentLogin = (req, res) => {
-  res.render('studentLogin');
+  res.render('menu');
 };
 
 exports.studentLogin = async (req, res) => {
@@ -40,7 +40,7 @@ exports.studentLogin = async (req, res) => {
     }
 
     // El estudiante ha iniciado sesión correctamente
-    console.log('El estudiante ha iniciado sesión correctamente.');
+    console.log('El estudiante ha iniciado sesión correctamente si.');
 
     // Almacenar la sesión del usuario
     req.session.user = { id: student.id, role: student.role };
@@ -49,6 +49,32 @@ exports.studentLogin = async (req, res) => {
      // Redirigir al panel de control del estudiante
   } catch (err) {
     console.error('Error al iniciar sesión del estudiante:', err);
+    res.status(500).send('Error del servidor');
+  }
+  console.log('Sesión de usuario:', req.session.user);
+};
+
+exports.showMenu = async (req, res) => {
+  console.log('Sesión de usuario:', req.session.user);
+  try {
+    // Obtén los módulos de la base de datos
+    const [modules] = await db.execute('SELECT * FROM modules');
+
+    // Obtén las asignaciones para cada módulo
+    for (let module of modules) {
+      const [tasks] = await db.execute('SELECT * FROM tasks WHERE modules_id = ?', [module.id]);
+      module.tasks = tasks;
+      console.log('Datos obtenidos de la base de datos:', modules);
+    }
+
+    // Verifica los datos obtenidos en la consola
+    console.log('Datos obtenidos de la base de datos:', modules);
+
+    // Pasa los módulos a la vista
+    console.log(modules);
+    res.render('menu', { username: req.session.user.username, role: req.session.user.role, modules: modules });
+  } catch (err) {
+    console.error('Error al obtener los módulos:', err);
     res.status(500).send('Error del servidor');
   }
 };

@@ -10,17 +10,11 @@ html(lang="en")
       h1 Bienvenido #{username} a la Cocoscuela!!
       nav
         ul
-          if role === 'teacher'
+          if role === 'teacher' || role === 'student'
             li: a(href="/create-task") Crear Tarea
             li: a(href="/subjects") Asignaturas
             li: a(href="/profile") Perfil
             li: a(href="/logout") Cerrar Sesión
-          else if role === 'student'
-            li: a(href="/view-assignments") Ver Tareas
-            li: a(href="/subjects") Asignaturas
-            li: a(href="/profile") Perfil
-            li: a(href="/logout") Cerrar Sesión
-
     main
       h2 Módulos y Tareas Asignadas
       if modules && modules.length > 0
@@ -62,12 +56,12 @@ html(lang="en")
     script.
       function showModuleForm() {
         var modal = document.getElementById("moduleFormModal");
-        modal.style.display = "block";
+        modal.style.display = 'block';
       }
 
       function closeModuleForm() {
         var modal = document.getElementById("moduleFormModal");
-        modal.style.display = "none";
+        modal.style.display = 'none';
       }
 
       function toggleAssignments(moduleElement) {

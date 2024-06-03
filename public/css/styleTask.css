@@ -1,0 +1,107 @@
+body {
+  background-color: #f4f4f4;
+  font-family: "Arial, sans-serif";
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  background-color: #3498db;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+nav {
+  width: 100%;
+}
+nav ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+}
+nav ul li {
+  margin: 10px 20px;
+}
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1rem;
+  padding: 10px 15px;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+nav ul li a:hover {
+  background-color: #217dbb;
+  color: #fff;
+}
+nav ul li a:focus {
+  outline: none;
+  box-shadow: 0 0 5px #3498db;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 20px 60px 20px;
+  width: 100%;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #3498db;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type=text],
+textarea,
+select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+input[type=text]:focus,
+textarea:focus,
+select:focus {
+  border-color: #3498db;
+}
+
+button.btn-submit {
+  background-color: #3498db;
+  color: #fff;
+  border: 2px solid #3498db;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-family: Arial, sans-serif;
+}
+
+/*# sourceMappingURL=styleTask.css.map */

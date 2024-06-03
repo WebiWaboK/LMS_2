@@ -1,9 +1,16 @@
-const checkRole = (role) => (req, res, next) => {
-    if (req.session.user && req.session.user.role === role) {
-      next();
+const checkRole = (req, res, next) => {
+  // Verificar si el usuario no está autenticado
+  if (!req.session.user) {
+    // Redirigir al inicio de sesión
+    if (req.originalUrl.includes('/studentLogin')) {
+      return res.redirect('/studentLogin');
     } else {
-      res.redirect('/teacherLogin');
+      return res.redirect('/teacherLogin');
     }
-  };
+  }
   
-  module.exports = checkRole;
+  // Si el usuario está autenticado, continuar con la siguiente función de middleware
+  next();
+};
+
+module.exports = checkRole;

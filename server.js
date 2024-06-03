@@ -4,23 +4,23 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const dotenv = require('dotenv');
 const taskController = require('./controllers/taskController');
-const logoutController = require('./controllers/logoutController'); // Importa el controlador de logout
+const logoutController = require('./controllers/logoutController');
+const checkRole = require('./middleware/checkRole');
 
 dotenv.config();
 
 const app = express();
 const port = 3000;
 
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({ extended: false }));
+// Configuración de express-session
 app.use(session({
   secret: 'your_secret_key',
   resave: false,
   saveUninitialized: true
 }));
-app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'views')); // Asegúrate de configurar la carpeta de vistas
 
+// Asigna el middleware checkRole después de configurar express-session
+app.use(checkRole);
 // Ruta principal
 app.get('/', (req, res) => {
   res.render('index');

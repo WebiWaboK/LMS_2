@@ -3,32 +3,58 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/css/styleTask.css")
     title Crear Tarea
-    link(rel="stylesheet", href="/stylesheets/style.css")
   body
-    h1 Crear Nueva Tarea
+    header 
+      h1 Bienvenido #{username} a la Cocoscuela!!
+      nav
+        ul
+          if role === 'teacher'
+            li: a(href="/create-task") Crear Tarea
+            li: a(href="/subjects") Asignaturas
+            li: a(href="/profile") Perfil
+            li: a(href="/logout") Cerrar Sesión
+          else if role === 'student'
+            li: a(href="/view-assignments") Ver Tareas
+            li: a(href="/subjects") Asignaturas
+            li: a(href="/profile") Perfil
+            li: a(href="/logout") Cerrar Sesión
 
-    form(action="/create-task", method="post")
-      div
-        label(for="moduleId") Módulo:
-        select(id="moduleId", name="moduleId", required)
-          each module in modules
-            option(value=module.id)= module.name
+    main
+      h2 Crear Nueva Tarea
 
-      div
-        label(for="taskName") Nombre de la Tarea:
-        input(type="text", id="taskName", name="taskName", required)
+      form(action="/create-task", method="post")
+        .form-group
+          label(for="moduleId") Módulo:
+          select#moduleId(name="moduleId", required)
+            each module in modules
+              option(value=module.id)= module.name
 
-      div
-        label(for="description") Descripción:
-        textarea(id="description", name="description", rows="4", required)
+        .form-group
+          label(for="taskName") Nombre de la Tarea:
+          input#taskName(type="text", name="taskName", required)
 
-      div
-        label(for="dueDate") Fecha de Entrega:
-        input(type="date", id="dueDate", name="dueDate", required)
+        .form-group
+          label(for="description") Descripción:
+          textarea#description(name="description", rows="4", required)
 
-      div
-        button(type="submit") Crear Tarea
+        .form-group
+          label(for="dueDate") Fecha de Entrega:
+          input#dueDate(type="date", name="dueDate", required)
+
+        // Agregando el campo de selección de módulo
+        .form-group
+          label(for="moduleId") Módulo:
+          select#moduleId(name="moduleId", required)
+            each module in modules
+              option(value=module.id)= module.name
+
+        .form-group
+          button.btn-submit(type="submit") Crear Tarea
 
     footer
       p Derechos de autor a coco :D
+
+    script.
+      // JavaScript necesario aquí
