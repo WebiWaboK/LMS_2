@@ -44,6 +44,17 @@ CREATE TABLE tasks (
 	FOREIGN KEY (modules_id) REFERENCES modules(id)
 );
 
+CREATE TABLE uploads (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    task_id INT,
+    student_id INT,
+    file_link VARCHAR(255),
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (task_id) REFERENCES tasks(id),
+    FOREIGN KEY (student_id) REFERENCES students(id)
+);
+
+
 -- Insertar el usuario admin
 INSERT INTO users (username, password, role) VALUES ('admin', '$2b$10$Z7UTMcHJykRclmfJBrSxK..yLfR7zsJV/.4CoyqVKn3Y3lnvlzCb.', 'admin');
 
@@ -52,9 +63,10 @@ SELECT * FROM teachers;
 SELECT * FROM students;
 SELECT * FROM modules;
 SELECT * FROM tasks;
-select * FROM module_tasks;
+select * FROM uploads;
 
 DELETE FROM users;
 
 DROP TABLE tasks;
 drop table modules;
+drop table uploads;
