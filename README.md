@@ -10,6 +10,7 @@ Este LMS (Learning Management System) es una plataforma diseñada para ayudar a 
       
 Configuración de la Base de Datos
   Si la base de datos no se inicializa correctamente, asegúrate de tener una base de datos llamada lms configurada en MySQL Workbench.
+  Debera copiar y pegar la base de datos en el mysql workbench
 
 Instalación de Dependencias
   Antes de comenzar, asegúrate de instalar las siguientes dependencias:

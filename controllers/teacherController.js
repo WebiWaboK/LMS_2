@@ -64,8 +64,8 @@ exports.showMenu = async (req, res) => {
 
     // Obtén las asignaciones para cada módulo
     for (let module of modules) {
-      const [tasks] = await db.execute('SELECT * FROM tasks WHERE modules_id = ?', [modules.id]);
-      modules.tasks = tasks;
+      const [tasks] = await db.execute('SELECT * FROM tasks WHERE modules_id = ?', [module.id]);
+      module.tasks = tasks;
     }
 
     // Pasa los módulos a la vista
@@ -73,6 +73,35 @@ exports.showMenu = async (req, res) => {
     res.render('menu', { username: req.session.user.username, role: req.session.user.role, modules: modules });
   } catch (err) {
     console.error('Error al obtener los módulos:', err);
+    res.status(500).send('Error del servidor');
+  }
+};
+
+exports.showModules = async (req, res) => {
+  try {
+    const modulesQuery = 'SELECT * FROM modules';
+    const tasksQuery = 'SELECT * FROM tasks';
+    
+    const [modulesResult, tasksResult] = await Promise.all([
+      db.execute(modulesQuery),
+      db.execute(tasksQuery)
+    ]);
+
+    const modules = modulesResult[0];
+    const tasks = tasksResult[0];
+
+    // Organizar las tareas por módulo
+    const tasksByModule = {};
+    tasks.forEach(task => {
+      if (!tasksByModule[task.modules_id]) {
+        tasksByModule[task.modules_id] = [];
+      }
+      tasksByModule[task.modules_id].push(task);
+    });
+
+    res.render('modules', { modules, tasksByModule });
+  } catch (err) {
+    console.error('Error al obtener módulos y tareas:', err);
     res.status(500).send('Error del servidor');
   }
 };

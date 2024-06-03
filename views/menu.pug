@@ -29,11 +29,11 @@ html(lang="en")
               h3= module.name
               p= module.description
               .assignments-container
-                if module.task && module.task.length > 0
+                if module.tasks && module.tasks.length > 0
                   ul.assignments
-                    each task in module.task
+                    each task in module.tasks
                       li
-                        a(href=`/task/${task_name.id}`)= task.title
+                        a(href=`/task/${task.id}`)= task.task_name
                         p= task.description
                         p Fecha de entrega: #{task.due_date}
                 else
@@ -50,9 +50,9 @@ html(lang="en")
           h2 Crear Módulo
           form(id="moduleForm", action="/create-module", method="POST")
             label(for="name") Nombre del Módulo:
-            input(type="text", id="name", name="name", maxlength="50", required)
+            input(type="text", id="name", name="name", maxlength="255", required)
             label(for="description") Descripción del Módulo:
-            textarea(id="description", name="description", maxlength="100", required)
+            textarea(id="description", name="description", maxlength="255", required)
             button(type="submit") Crear
 
     footer
