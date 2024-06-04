@@ -1,0 +1,34 @@
+// views/exam.pug
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/css/style.css")
+    title Examen #{exam.title}
+  body
+    header 
+      h1 Examen: #{exam.title}
+      nav
+        ul
+          li: a(href="/menu") Volver al Menú
+          li: a(href="/logout") Cerrar Sesión
+
+    main
+      form(id="examForm", action=`/submit-exam/${exam.id}`, method="POST")
+        each question, qIndex in exam.questions
+          .question
+            h2 Pregunta #{qIndex + 1}: #{question.question_text}
+            ul
+              each answer, aIndex in question.answers
+                li
+                  input(type="radio", id=`question-${qIndex}-answer-${aIndex}`, name=`answers[${question.id}]`, value=answer.id required)
+                  label(for=`question-${qIndex}-answer-${aIndex}`)= answer.answer_text
+        if role === 'student'
+          button(type="submit") Enviar Respuestas
+      if role === 'teacher'
+        form(action=`/edit-exam/${exam.id}`, method="GET")
+          button(type="submit") Editar Examen
+
+    footer
+      p Derechos de autor a coco :D

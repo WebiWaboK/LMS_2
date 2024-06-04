@@ -45,14 +45,17 @@ exports.studentLoginAndShowMenu = async (req, res) => {
     // Almacenar la sesión del usuario
     req.session.user = { id: student.id, role: 'student', username: student.username };
 
-    // Obtener los módulos y tareas
-    console.log('Obteniendo los módulos y tareas...');
+    // Obtener los módulos, tareas y exámenes
+    console.log('Obteniendo los módulos, tareas y exámenes...');
     const [modules] = await db.execute('SELECT * FROM modules');
 
-    // Obtener las tareas para cada módulo
+    // Obtener las tareas y exámenes para cada módulo
     for (let module of modules) {
       const [tasks] = await db.execute('SELECT * FROM tasks WHERE modules_id = ?', [module.id]);
       module.tasks = tasks;
+
+      const [exams] = await db.execute('SELECT * FROM exams WHERE module_id = ?', [module.id]);
+      module.exams = exams;
     }
 
     // Pasa los módulos a la vista

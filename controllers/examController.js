@@ -73,7 +73,8 @@ async function createExam(req, res) {
             }
         }
 
-        res.status(201).send('Examen creado correctamente');
+        //res.status(201).send('Examen creado correctamente');
+        res.render('menu');
     } catch (error) {
         console.error('Error al crear el examen', error);
         res.status(500).send('Error al crear el examen');

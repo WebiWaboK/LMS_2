@@ -13,12 +13,10 @@ html(lang="es")
           if role === 'teacher'
             li: a(href="/create-task") Crear Tarea
             li: a(href="/create-exam") Crear Examen
-            li: a(href="/profile") Perfil
+            li: a(href="https://meet.google.com", target="_blank") Videollamadas
             li: a(href="/logout") Cerrar Sesión
           else if role === 'student'
-            li: a(href="/view-task") Ver Tareas
-            li: a(href="/subjects") Asignaturas
-            li: a(href="/profile") Perfil
+            li: a(href="https://meet.google.com", target="_blank") Videollamadas
             li: a(href="/logout") Cerrar Sesión
     main
       h2 Módulos y Tareas Asignadas
@@ -38,6 +36,14 @@ html(lang="es")
                         p Fecha de entrega: #{task.due_date}
                 else
                   p No hay tareas asignadas en este módulo.
+
+                if module.exams && module.exams.length > 0
+                  ul.exams
+                    each exam in module.exams
+                      li
+                        a(href=`/exam/${exam.id}`)= exam.title
+                else
+                  p No hay exámenes asignados en este módulo.
       else
         p No hay módulos creados.
 

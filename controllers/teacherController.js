@@ -62,10 +62,13 @@ exports.showMenu = async (req, res) => {
     // Obtén los módulos de la base de datos
     const [modules] = await db.execute('SELECT * FROM modules');
 
-    // Obtén las asignaciones para cada módulo
+    // Obtén las asignaciones y exámenes para cada módulo
     for (let module of modules) {
       const [tasks] = await db.execute('SELECT * FROM tasks WHERE modules_id = ?', [module.id]);
       module.tasks = tasks;
+
+      const [exams] = await db.execute('SELECT * FROM exams WHERE module_id = ?', [module.id]);
+      module.exams = exams;
     }
 
     // Pasa los módulos a la vista

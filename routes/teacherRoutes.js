@@ -8,6 +8,7 @@ const checkRole = require('../middleware/checkRole');
 const { urlencodedParser } = require('../middleware/middleware');
 
 // Mostrar la página de inicio de sesión del maestro
+// Mostrar la página de inicio de sesión del maestro
 router.get('/teacherLogin', teacherController.showTeacherLogin);
 
 // Manejar el formulario de inicio de sesión del maestro
@@ -24,9 +25,8 @@ router.post('/create-task', checkRole('teacher'), taskController.createTask);
 router.get('/create-module', checkRole('teacher'), moduleController.showCreateModuleForm);
 router.post('/create-module', urlencodedParser, checkRole('teacher'), moduleController.createModule);
 
-router.get('/create-exam', examController.showCreateExamForm);
-router.get('/create-exam', checkRole('teacher'),examController.createExam);
-router.get('/create-exam', examController.renderCreateExamPage);
-router.post('/exams', examController.createExam);
+// Ruta para crear exámenes (solo accesible para maestros)
+router.get('/create-exam', checkRole('teacher'), examController.showCreateExamForm);
+router.post('/create-exam', checkRole('teacher'), examController.createExam);
 
 module.exports = router;
