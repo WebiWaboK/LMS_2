@@ -13,6 +13,11 @@ html
         .form-group
           label(for="title") Título del Examen:
           input(type="text", name="title", required)
+        .form-group
+          label(for="module_id") Módulo:
+          select(name="module_id", required)
+            each module in modules
+              option(value=module.id)= module.name
         #questionsContainer
         button(type="button", id="addQuestionBtn") Agregar Pregunta
         button(type="submit") Crear Examen
@@ -27,10 +32,10 @@ html
       let questionIndex = 0;
       document.getElementById('addQuestionBtn').addEventListener('click', function() {
         const container = document.getElementById('questionsContainer');
-        const questionId = Date.now(); // Generar un identificador único para la pregunta
+        const questionId = questionIndex++; // Incrementar el índice para cada pregunta
         const questionHTML = `
           <div class="question">
-            <h3>Pregunta ${questionIndex + 1}</h3>
+            <h3>Pregunta ${questionIndex}</h3>
             <div class="form-group">
               <label for="questions[${questionId}][question_text]">Pregunta:</label>
               <input type="text" name="questions[${questionId}][question_text]" required>
@@ -52,5 +57,4 @@ html
           </div>
         `;
         container.insertAdjacentHTML('beforeend', questionHTML);
-        questionIndex++;
       });

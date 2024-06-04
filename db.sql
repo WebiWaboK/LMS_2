@@ -54,6 +54,29 @@ CREATE TABLE uploads (
     FOREIGN KEY (student_id) REFERENCES students(id)
 );
 
+-- Tabla para almacenar los exámenes
+CREATE TABLE exams (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL
+);
+
+-- Tabla para almacenar las preguntas de los exámenes
+CREATE TABLE questions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    exam_id INT NOT NULL,
+    question_text TEXT NOT NULL,
+    FOREIGN KEY (exam_id) REFERENCES exams(id)
+);
+
+-- Tabla para almacenar las respuestas a las preguntas
+CREATE TABLE answers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    question_id INT NOT NULL,
+    answer_text TEXT NOT NULL,
+    is_correct BOOLEAN NOT NULL DEFAULT FALSE,
+    FOREIGN KEY (question_id) REFERENCES questions(id)
+);
+
 
 -- Insertar el usuario admin
 INSERT INTO users (username, password, role) VALUES ('admin', '$2b$10$Z7UTMcHJykRclmfJBrSxK..yLfR7zsJV/.4CoyqVKn3Y3lnvlzCb.', 'admin');
@@ -67,6 +90,8 @@ select * FROM uploads;
 
 DELETE FROM users;
 
+drop table students;
+drop table teachers;
 DROP TABLE tasks;
 drop table modules;
 drop table uploads;
