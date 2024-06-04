@@ -3,6 +3,7 @@ const router = express.Router();
 const teacherController = require('../controllers/teacherController');
 const taskController = require('../controllers/taskController');
 const moduleController = require('../controllers/moduleController');
+const examController = require('../controllers/examController');
 const checkRole = require('../middleware/checkRole');
 const { urlencodedParser } = require('../middleware/middleware');
 
@@ -22,5 +23,10 @@ router.post('/create-task', checkRole('teacher'), taskController.createTask);
 // Ruta para crear módulos (solo accesible para maestros)
 router.get('/create-module', checkRole('teacher'), moduleController.showCreateModuleForm);
 router.post('/create-module', urlencodedParser, checkRole('teacher'), moduleController.createModule);
+
+router.get('/create-exam', examController.showCreateExamForm);
+router.get('/create-exam', checkRole('teacher'),examController.createExam);
+router.get('/create-exam', examController.renderCreateExamPage);
+router.post('/exams', examController.createExam);
 
 module.exports = router;

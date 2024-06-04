@@ -1,0 +1,56 @@
+doctype html
+html
+  head
+    title Crear Examen
+    link(rel="stylesheet", href="/css/styleQuestion.css")
+  body
+    header 
+      h1 Bienvenido #{username} a la Cocoscuela!!
+    
+    main
+      h1 Crear Examen
+      form(action="/exams", method="POST", id="examForm")
+        .form-group
+          label(for="title") Título del Examen:
+          input(type="text", name="title", required)
+        #questionsContainer
+        button(type="button", id="addQuestionBtn") Agregar Pregunta
+        button(type="submit") Crear Examen
+
+      h2 Ver Respuestas
+      // Implementar lógica para mostrar las respuestas de los alumnos
+
+    footer
+      p Derechos de autor a coco :D
+
+    script.
+      let questionIndex = 0;
+      document.getElementById('addQuestionBtn').addEventListener('click', function() {
+        const container = document.getElementById('questionsContainer');
+        const questionId = Date.now(); // Generar un identificador único para la pregunta
+        const questionHTML = `
+          <div class="question">
+            <h3>Pregunta ${questionIndex + 1}</h3>
+            <div class="form-group">
+              <label for="questions[${questionId}][question_text]">Pregunta:</label>
+              <input type="text" name="questions[${questionId}][question_text]" required>
+            </div>
+            <div class="answers">
+              ${[0, 1, 2, 3].map(answerIndex => `
+                <div class="answer">
+                  <div class="form-group">
+                    <label for="questions[${questionId}][answers][${answerIndex}][answer_text]">Respuesta ${answerIndex + 1}:</label>
+                    <input type="text" name="questions[${questionId}][answers][${answerIndex}][answer_text]" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="questions[${questionId}][answers][${answerIndex}][is_correct]">Correcta:</label>
+                    <input type="checkbox" name="questions[${questionId}][answers][${answerIndex}][is_correct]">
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+        container.insertAdjacentHTML('beforeend', questionHTML);
+        questionIndex++;
+      });

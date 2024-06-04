@@ -1,5 +1,5 @@
 doctype html
-html(lang="e")
+html(lang="es")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
@@ -12,7 +12,7 @@ html(lang="e")
         ul
           if role === 'teacher'
             li: a(href="/create-task") Crear Tarea
-            li: a(href="/subjects") Asignaturas
+            li: a(href="/create-exam") Crear Examen
             li: a(href="/profile") Perfil
             li: a(href="/logout") Cerrar Sesión
           else if role === 'student'
