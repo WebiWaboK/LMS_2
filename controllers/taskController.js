@@ -132,11 +132,14 @@ exports.editTask = async (req, res) => {
   }
 };
 
-// Eliminar una tarea específica
 exports.deleteTask = async (req, res) => {
   try {
     const taskId = req.params.id;
 
+    // Eliminar archivos subidos relacionados con la tarea
+    await db.execute('DELETE FROM uploads WHERE task_id = ?', [taskId]);
+
+    // Luego eliminar la tarea
     await db.execute('DELETE FROM tasks WHERE id = ?', [taskId]);
 
     res.redirect('/menu');
