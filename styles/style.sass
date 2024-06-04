@@ -1,11 +1,7 @@
 // Variables
-$primary-color: #3498db
-$secondary-color: #2ecc71
-$font-family: 'Arial, sans-serif'
+$primary-color: #007bff
+$font-family: Arial, sans-serif
 $body-background: #f4f4f4
-$button-background: #fff
-$button-hover-background: $primary-color
-$button-hover-color: #fff
 
 // Reset some basic elements
 *
@@ -16,49 +12,108 @@ $button-hover-color: #fff
 body
   font-family: $font-family
   background-color: $body-background
+  margin: 0
+  padding: 0
   display: flex
   flex-direction: column
   min-height: 100vh
 
 header
   background-color: $primary-color
-  color: #fff
-  padding: 20px 0
+  color: white
+  padding: 1rem
   text-align: center
-  h1
-    margin: 0
-    font-size: 2rem
+
+nav
+  margin-top: 0.5rem
+  ul
+    list-style: none
+    padding: 0
+    display: flex
+    justify-content: center
+    gap: 1rem
+
+  a
+    color: white
+    text-decoration: none
+    &:hover
+      text-decoration: underline
 
 main
   flex: 1
-  display: flex
-  justify-content: center
-  align-items: center
+  display: inline-flex  // Ajuste principal para hacer que el tamaño se adapte al contenido
   flex-direction: column
-  padding: 20px
+  align-items: center
+  justify-content: center
+  padding: 2rem
+  background-color: #ffffff
+  border-radius: 8px
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
+  margin: 2rem auto
+  h2
+    color: $primary-color
+  p
+    font-size: 1.1rem
 
   form
-    margin: 10px
+    margin-top: 1rem
+    display: flex
+    flex-direction: column
+    gap: 0.5rem
+
+    label
+      font-weight: bold
+
+    input[type="text"]
+      padding: 0.5rem
+      border: 1px solid #ccc
+      border-radius: 4px
+
     button
-      background-color: $button-background
-      border: 2px solid $primary-color
-      color: $primary-color
-      padding: 10px 20px
-      font-size: 1rem
+      padding: 0.5rem 1rem
+      border: none
+      border-radius: 4px
+      background-color: $primary-color
+      color: white
       cursor: pointer
-      transition: background-color 0.3s, color 0.3s
-      border-radius: 5px
       &:hover
-        background-color: $button-hover-background
-        color: $button-hover-color
-      &:focus
-        outline: none
-        box-shadow: 0 0 5px $primary-color
+        background-color: darken($primary-color, 10%)
+
+  h3
+    margin-top: 2rem
+    color: $primary-color
+
+  table
+    width: 100%
+    border-collapse: collapse
+    margin-top: 1rem
+    thead
+      background-color: $primary-color
+      color: white
+    th, td
+      padding: 0.75rem
+      border: 1px solid #ddd
+    a
+      color: $primary-color
+      &:hover
+        text-decoration: underline
+
+.teacher-actions
+  margin-top: 2rem
+  display: flex
+  gap: 1rem
 
 footer
   background-color: $primary-color
-  color: #fff
+  color: white
   text-align: center
-  padding: 10px 0
-  p
-    margin: 0
+  padding: 1rem
+  position: relative
+  bottom: 0
+  width: 100%
+
+@media screen and (max-width: 768px)
+  main
+    padding: 1rem
+    width: 95%
+    margin: 1rem auto

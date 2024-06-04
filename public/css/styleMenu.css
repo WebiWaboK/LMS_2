@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: "Arial, sans-serif";
+  font-family: Arial, sans-serif;
   background-color: #f4f4f4;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@ body {
 }
 
 header {
-  background-color: #3498db;
+  background-color: #007bff;
   color: #fff;
   padding: 20px 0;
   text-align: center;
@@ -53,12 +53,12 @@ header nav ul li a {
   transition: background-color 0.3s, color 0.3s;
 }
 header nav ul li a:hover {
-  background-color: #217dbb;
+  background-color: #0062cc;
   color: #fff;
 }
 header nav ul li a:focus {
   outline: none;
-  box-shadow: 0 0 5px #3498db;
+  box-shadow: 0 0 5px #007bff;
 }
 
 main {
@@ -72,7 +72,7 @@ main {
 }
 main h2 {
   margin-bottom: 20px;
-  color: #3498db;
+  color: #007bff;
 }
 main .modules-container {
   display: flex;
@@ -115,14 +115,14 @@ main .modules-container .module .assignments-container ul.assignments li {
 }
 main .modules-container .module .assignments-container ul.assignments li h4 {
   margin: 0 0 5px 0;
-  color: #3498db;
+  color: #007bff;
 }
 main .modules-container .module .assignments-container ul.assignments li p {
   margin: 0;
 }
 
 footer {
-  background-color: #3498db;
+  background-color: #007bff;
   color: #fff;
   text-align: center;
   padding: 10px 0;
@@ -183,7 +183,7 @@ form#moduleForm textarea {
 }
 form#moduleForm input[type=text]:focus,
 form#moduleForm textarea:focus {
-  border-color: #3498db;
+  border-color: #007bff;
 }
 
 /*# sourceMappingURL=styleMenu.css.map */
